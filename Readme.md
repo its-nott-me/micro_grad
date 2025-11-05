@@ -93,7 +93,7 @@ This will:
 
 Example output (simplified view):
 
-![Computation Graph Example](assets/simple_net_example.svg)
+![Computation Graph Example](assets/simple_net.svg)
 
 > 💡 The graph shows how each `Value` node connects through operations like `mul`, `add`, and activation functions — demonstrating how backpropagation works under the hood.
 
