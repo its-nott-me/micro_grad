@@ -3,6 +3,7 @@ import numpy as np
 from nn import Neuron, Layer, MLP
 from micro_grad import Value
 from sklearn.datasets import make_moons, make_blobs
+
 X, y = make_moons(n_samples=100, noise=0.1)
 
 y = y*2 - 1
@@ -19,7 +20,7 @@ def loss(batch_size=None):
   if batch_size is None:
     Xb, yb = X, y
   else:
-    rand_idx = np.random.permutaion(X.shape[0])[:batch_size]
+    rand_idx = np.random.permutation(X.shape[0])[:batch_size]
     Xb, yb = X[rand_idx], y[rand_idx]
   inputs = [list(map(Value, xrow)) for xrow in Xb]
 
@@ -32,7 +33,7 @@ def loss(batch_size=None):
   reg_loss = alpha * sum((p*p for p in model.parameters()))
   total_loss = data_loss + reg_loss
 
-  accuracy = [(yi > 0) == (scorei.data > 0) for yi, scorei in zip(yb, scores)]
+  accuracy = [(yi > 0) == (score_i.data > 0) for yi, score_i in zip(yb, scores)]
   return total_loss, sum(accuracy)/len(accuracy)
 
 total_loss, acc = loss()
@@ -70,3 +71,5 @@ plt.contourf(xx, yy, Z, cmap=plt.cm.RdYlGn, alpha=0.8)
 plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.jet)
 plt.xlim(xx.min(), xx.max())
 plt.ylim(yy.min(), yy.max())
+plt.show()
+
